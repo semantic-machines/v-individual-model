@@ -1,2 +1,2 @@
 # v-data-model
-veda data model
+veda individual model
