@@ -1,6 +1,7 @@
 use crate::onto::datatype::{exponent_to_scale, DataType, Lang};
 use crate::onto::individual::IndividualObj;
 use crate::onto::resource::{Resource, Value};
+use base64;
 use chrono::{TimeZone, Utc};
 use rust_decimal::Decimal;
 use serde::ser::{Serialize, SerializeMap, SerializeStruct, Serializer};
@@ -74,8 +75,9 @@ impl Serialize for Resource {
             Value::Uri(s) => {
                 tup.serialize_field("data", s)?;
             },
-            Value::Binary(_) => {
-                // Handle binary data case if needed
+            Value::Binary(bytes) => {
+                let base64_str = base64::encode(bytes);
+                tup.serialize_field("data", &base64_str)?;
             },
         }
         tup.serialize_field("type", &self.rtype)?;
@@ -119,7 +121,10 @@ impl Serialize for Value {
 
                 tup.end()
             },
-            _ => serializer.serialize_none(),
+            Value::Binary(bytes) => {
+                let base64_str = base64::encode(bytes);
+                serializer.serialize_str(&base64_str)
+            },
         }
     }
 }

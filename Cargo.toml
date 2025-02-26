@@ -22,3 +22,4 @@ iri-string = "0.7.0"
 bincode = "1.2.1"
 
 log = "0.4"
+base64 = "0.22.1"
