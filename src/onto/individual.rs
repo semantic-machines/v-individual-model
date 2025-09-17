@@ -53,6 +53,13 @@ impl RawObj {
             cur_predicates: 0,
         }
     }
+
+    pub fn reset(&mut self) {
+        self.cur = 0;
+        self.len_predicates = 0;
+        self.cur_predicates = 0;
+        self.raw_type = RawType::Unknown;
+    }
 }
 
 #[derive(Debug)]
@@ -102,6 +109,11 @@ impl Individual {
                 raw_type: RawType::Cbor,
             },
         }
+    }
+
+    pub fn reset(&mut self) {
+        self.obj.resources.clear();
+        self.raw.reset();
     }
 
     pub fn is_empty(&self) -> bool {

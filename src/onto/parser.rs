@@ -39,6 +39,9 @@ pub fn parse_raw(iraw: &mut Individual) -> Result<(), i8> {
         return Ok(());
     }
 
+    // Reset state before parsing
+    iraw.reset();
+
     let traw: &[u8] = iraw.raw.data.as_slice();
 
     if traw[0] == MSGPACK_MAGIC_HEADER {
