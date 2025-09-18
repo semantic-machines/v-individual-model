@@ -286,6 +286,10 @@ impl Individual {
         self.raw.data.len()
     }
 
+    pub fn get_raw_data(&self) -> &[u8] {
+        &self.raw.data
+    }
+
     pub fn set_id(&mut self, id: &str) -> &mut Self {
         self.obj.uri = id.to_owned();
         self
