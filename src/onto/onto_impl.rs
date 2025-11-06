@@ -33,17 +33,9 @@ impl Onto {
                 || vtype == "owl:DatatypeProperty"
             {
                 let subs = if vtype == "owl:Class" || vtype == "rdfs:Class" {
-                    if let Some(_subclasses) = indv.get_literals("rdfs:subClassOf") {
-                        _subclasses
-                    } else {
-                        Vec::new()
-                    }
+                    indv.get_literals("rdfs:subClassOf").unwrap_or_default()
                 } else if vtype == "rdf:Property" || vtype == "owl:ObjectProperty" || vtype == "owl:DatatypeProperty" {
-                    if let Some(_subproperties) = indv.get_literals("rdfs:subPropertyOf") {
-                        _subproperties
-                    } else {
-                        Vec::new()
-                    }
+                    indv.get_literals("rdfs:subPropertyOf").unwrap_or_default()
                 } else {
                     Vec::new()
                 };
